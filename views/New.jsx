@@ -16,6 +16,7 @@ module.exports = class New extends React.Component{
           <input type="checkbox" name="readyToEat" id="readyToEat" />
           <input type="submit"  value="create fruit"/>
       </form>
+      <button><a href={'/fruits'}>Back</a></button>
       </DefaultLayout>
     </>
   )}

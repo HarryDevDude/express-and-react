@@ -3,21 +3,21 @@ const DefaultLayout = require('./layout/DefaultLayout')
 
 module.exports = class Edit extends React.Component{
   render() {
+    const fruit = this.props.fruit
     return(
-    <>
     <DefaultLayout title="Edit Page">
-      <h1>Edit Fruite Page</h1>
-      <form action="/fruits" method="POST">
+      <form action={`/fruits/${fruit._id}?_method=PUT`}>
           <label htmlFor="name">Name:</label>
-          <input type="text"  id='name' name='name'/>
+          <input type="text" id='name' name='name' defaultValue={fruit.name}/>
           <label htmlFor="color">Color:</label>
-          <input type="text"  id='color' name='color'/>
+          <input type="text"  id='color' name='color' defaultValue={fruit.color}/>
           <label htmlFor="readyToEat">Ready to eat:</label>
-          <input type="checkbox" name="readyToEat" id="readyToEat" />
-          <input type="submit"  value="create fruit"/>
+          <input type="checkbox" name="readyToEat" id="readyToEat" defaultChecked={fruit.readyToEat}/>
+          <input type="submit" value="create fruit"/>
+          <button><a href={'/fruits'}>Back</a></button>
       </form>
+      
       </DefaultLayout>
-    </>
   )}
 }
 

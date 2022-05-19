@@ -46,10 +46,33 @@ app.get('/fruits/new', (req, res) => {
     res.render('New');
 });
 
+// Delete
 app.delete('/fruits/:id', (req, res) => {
   Fruit.findByIdAndDelete(req.params.id, (err) => {
     if (!err){
       res.status(200).redirect('/fruits')
+    }
+    else {
+      res.status(400).json(err)
+    }
+  })
+})
+
+// Update
+app.put('/fruits/:id', (req, res) => {
+  req.body.readyToEat === 'on'
+  ?
+  req.body.readyToEat = true
+  :
+  req.body.readyToEat = false
+  // Update funciton has four arguements
+  // 1. The ID
+  // 2. The content of what we want to update
+  // 3. Options object {new:true}
+  // 4. Callback
+  Fruit.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedFruit) => {
+    if (!err) {
+      res.status(200).redirect('/fruit')
     }
     else {
       res.status(400).json(err)
@@ -85,8 +108,17 @@ app.post('/fruits', (req, res) => {
     
 })
 
+// Edit
 app.get('/fruits/:id/edit', (req, res) => {
-  res.render('Edit')
+  Fruit.findById(req.params.id, (err, foundFruit) => {
+    if (!err) {
+      res.render('Edit', {fruit: foundFruit})
+    }
+    else{
+      res.status(400).json(err)
+    }
+  })
+  // res.render('Edit')
 })
 
 // Show
