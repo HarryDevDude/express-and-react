@@ -1,9 +1,11 @@
 require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
+const method = require('method-override')
 const app = express()
 const PORT = 3000
 const Fruit = require('./models/Fruit')
+
 
 // ===== Connection to Database =====
 mongoose.connect(process.env.MONGO_URI, {
@@ -17,6 +19,7 @@ app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
 
 // ===== Middleware =====
+app.use(method('_method'))
 app.use(express.urlencoded({extended:false}));
 // Use Express middleware to parse JSON.
 app.use(express.json())
@@ -26,6 +29,9 @@ app.use((req, res, next) => {
 })
 
 // ===== Routes =====
+
+// INDUCES = order to how to structure the routes
+// Index, New, Delete, Update, Create, Edit, Show
 
 // Index
 app.get('/fruits', (req, res) => {
@@ -40,12 +46,15 @@ app.get('/fruits/new', (req, res) => {
     res.render('New');
 });
 
-// Show
-app.get('/fruits/:id', (req, res) => {
-    Fruit.findById(req.params.id, (err, foundFruit) => {
-    res.render('Show', {fruit: foundFruit})
-    })
-  // This will display our Show component in the browser. Node will automatically look for a Show file inside the views folder.
+app.delete('/fruits/:id', (req, res) => {
+  Fruit.findByIdAndDelete(req.params.id, (err) => {
+    if (!err){
+      res.status(200).redirect('/fruits')
+    }
+    else {
+      res.status(400).json(err)
+    }
+  })
 })
 
 // Create
@@ -74,6 +83,14 @@ app.post('/fruits', (req, res) => {
         res.redirect('/fruits')
     })
     
+})
+
+// Show
+app.get('/fruits/:id', (req, res) => {
+  Fruit.findById(req.params.id, (err, foundFruit) => {
+  res.render('Show', {fruit: foundFruit})
+  })
+// This will display our Show component in the browser. Node will automatically look for a Show file inside the views folder.
 })
 
 // Returns giant object with info and methods we can use
