@@ -13,6 +13,9 @@ class Show extends React.Component {
                   {fruit.readyToEat ? "it's ready to eat" : "It's not ready to eat... Can't touch this"}
                   </p>
                   <button><a href={'/fruits'}>Back</a></button>
+                  <form action={`/fruits/${fruit._id}?_method=DELETE`} method="POST">
+                      <input type="submit" value="DELETE" />
+                    </form>
             </div>
             </DefaultLayout>
         )

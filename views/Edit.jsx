@@ -1,12 +1,12 @@
 const React = require('react')
 const DefaultLayout = require('./layout/DefaultLayout')
 
-module.exports = class New extends React.Component{
+module.exports = class Edit extends React.Component{
   render() {
     return(
     <>
-    <DefaultLayout title="New Page">
-      <h1>Create Fruite Page</h1>
+    <DefaultLayout title="Edit Page">
+      <h1>Edit Fruite Page</h1>
       <form action="/fruits" method="POST">
           <label htmlFor="name">Name:</label>
           <input type="text"  id='name' name='name'/>

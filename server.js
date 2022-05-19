@@ -85,6 +85,10 @@ app.post('/fruits', (req, res) => {
     
 })
 
+app.get('/fruits/:id/edit', (req, res) => {
+  res.render('Edit')
+})
+
 // Show
 app.get('/fruits/:id', (req, res) => {
   Fruit.findById(req.params.id, (err, foundFruit) => {
