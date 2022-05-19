@@ -6,15 +6,15 @@ module.exports = class Edit extends React.Component{
     const fruit = this.props.fruit
     return(
     <DefaultLayout title="Edit Page">
-      <form action={`/fruits/${fruit._id}?_method=PUT`}>
+      <form action={`/fruits/${fruit._id}?_method=PUT`} method="POST">
           <label htmlFor="name">Name:</label>
           <input type="text" id='name' name='name' defaultValue={fruit.name}/>
           <label htmlFor="color">Color:</label>
           <input type="text"  id='color' name='color' defaultValue={fruit.color}/>
           <label htmlFor="readyToEat">Ready to eat:</label>
           <input type="checkbox" name="readyToEat" id="readyToEat" defaultChecked={fruit.readyToEat}/>
-          <input type="submit" value="create fruit"/>
-          <button><a href={'/fruits'}>Back</a></button>
+          <input type="submit" value="edit fruit"/>
+          <button><a href={'/fruits'}>Back to Index</a></button>
       </form>
       
       </DefaultLayout>

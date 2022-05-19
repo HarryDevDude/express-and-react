@@ -21,6 +21,7 @@ app.engine('jsx', require('express-react-views').createEngine())
 // ===== Middleware =====
 app.use(method('_method'))
 app.use(express.urlencoded({extended:false}));
+app.use(express.static('public'))
 // Use Express middleware to parse JSON.
 app.use(express.json())
 app.use((req, res, next) => {
@@ -72,7 +73,7 @@ app.put('/fruits/:id', (req, res) => {
   // 4. Callback
   Fruit.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedFruit) => {
     if (!err) {
-      res.status(200).redirect('/fruit')
+      res.status(200).redirect('/fruits')
     }
     else {
       res.status(400).json(err)
