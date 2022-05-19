@@ -21,7 +21,7 @@ app.use(express.urlencoded({extended:false}));
 // Use Express middleware to parse JSON.
 app.use(express.json())
 app.use((req, res, next) => {
-    console.log('I run for all the routes.')
+    // console.log('I run for all the routes.')
     next()
 })
 
@@ -57,6 +57,8 @@ app.post('/fruits', (req, res) => {
     req.body.readyToEat = false
     // console.log('BEFORE', req.body.name)
     // req.body.readyToEat = req.body.readyToEat === 'on' ? true : false;
+    // req.body.readyToEat = req.body.readyToEat ? true : false;
+
 
     // Below line mimics working with a database
     // fruits.push(req.body)
